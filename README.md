@@ -31,9 +31,13 @@ To see our runs, I have uploaded it to this Google Drive link. `https://drive.go
 
 I made the plots using the modified .py files below.
 They require the "checkpoint" or `.ckpt` file that is also in the `log` directory. This stores all your runs.
+
 `acc_plot.py`: Makes balanced accuracy plots of epoch over time
+
 `auc_plot.py`:  Makes plots of AUC over epoch for one fold
+
 `auc_fold_plot.py`: Makes a plot of AUC over each of the folds
+
 `recall_plot.py`: Makes a plot of recall over each of the folds
 
 # GNEprop
