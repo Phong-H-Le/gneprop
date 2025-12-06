@@ -1,3 +1,41 @@
+# FOR BME590 PROJECT
+### Setting up the Environment
+
+This GitHub was a real pain to get working, since some of the dependencies are out of date. I have updated their environment.yml to be up to date as of 11/14/2025. Please use this link `https://github.com/Phong-H-Le/gneprop`
+However, if you would like to run the code, I would follow their instructions. First, first install Miniconda.
+Then doing the following, we are setting up a specific Conda environment:
+```
+conda env create -f environment.yml --name gneprop
+conda activate gneprop
+
+git clone https://github.com/learnables/learn2learn/
+cd learn2learn
+pip install .
+```
+### Running the Training/Testing
+
+`gneprop_pyg.py`: Main file to run GNEProp
+`
+To get the data we used, please visit this drive `https://drive.google.com/drive/folders/1OmZJvPzPRET7TCj_lRCFxU3ypWDsmlpv?usp=sharing`
+
+The SKELETON COMMAND for unsupervised training is as follows if you are using a GPU. Edit `--gpus 1` to `--gpu 0` if training on CPU.
+Add the parameter `--test_only` if you want to test only on dataset.
+```
+python gneprop_pyg.py --dataset_path support_data/s1b.csv --lr 4.9379e-05 --hidden_size 500 --depth 5 --num_readout_layers 1 --dropout 0.13 --lr_strategy warmup_cosine_step --aggr mean --gpus 1 --split_type scaffold --max_epochs 30 --metric val_ap --num_workers 1 --log_directory <log_directory> --parallel_folds 20
+```
+To do supervised training, you need to download the checkpoint from `https://drive.google.com/drive/folders/1g3wZFa0jxadElcayJR0euvCWTWymXZ1J?usp=sharing` labeled `20250801-182534`. Then add `--pretrain_path <pretrained_path> --mp_to_freeze 0 --freeze_ab_embeddings --freeze_batchnorm` argument to the end of the command. 
+
+### Creating Plots & Analysis
+After you do a run, they store the evaluation metrics of the test set in `final_metrics.pkl` files in each of the runs in the `log` directory.
+To see our runs, I have uploaded it to this Google Drive link. `https://drive.google.com/drive/folders/1tD1ujKYHd4KYwAtehalfceLnviBPej-f?usp=sharing`
+
+I made the plots using the modified .py files below.
+They require the "checkpoint" or `.ckpt` file that is also in the `log` directory. This stores all your runs.
+`acc_plot.py`: Makes balanced accuracy plots of epoch over time
+`auc_plot.py`:  Makes plots of AUC over epoch for one fold
+`auc_fold_plot.py`: Makes a plot of AUC over each of the folds
+`recall_plot.py`: Makes a plot of recall over each of the folds
+
 # GNEprop
 ![GNEprop schema](figures/GNEprop_schema.png "Title")
 
